@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 const AddPet = ({ onSuccess }) => {
-  const { register, handleSubmit, reset } = useForm();
-
+  const { register, handleSubmit, reset,setValue } = useForm();
+  const [priceDisplay, setPriceDisplay] = useState('');
  const onSubmit = async (data) => {
   const formData = new FormData();
   formData.append('image', data.image[0]);
   formData.append('name', data.name);
+  formData.append('sex', data.sex);
   formData.append('price', data.price);
   formData.append('discount', data.discount);
   formData.append('rating', data.rating);
@@ -15,7 +16,6 @@ const AddPet = ({ onSuccess }) => {
   formData.append('isTop', data.isTop || false);
   formData.append('isNew', data.isNew || false);
   formData.append('isOutOfStock', data.isOutOfStock || false);
-
   console.log('Submitting form data:', data);
 
   try {
@@ -41,11 +41,49 @@ const AddPet = ({ onSuccess }) => {
           <label className="block">Tên thú cưng</label>
           <input {...register('name')} required className="w-full border p-2 rounded" />
         </div>
-
         <div>
-          <label className="block">Giá</label>
-          <input type="number" {...register('price')} required className="w-full border p-2 rounded" />
+          <label className="block mb-1">Giới tính</label>
+          <div className="flex items-center gap-4">
+            <label className="flex items-center gap-1">
+              <input
+                type="radio"
+                value="Đực"
+                {...register('sex', { required: true })}
+                className="accent-blue-500"
+              />
+              Đực
+            </label>
+            <label className="flex items-center gap-1">
+              <input
+                type="radio"
+                value="Cái"
+                {...register('sex', { required: true })}
+                className="accent-pink-500"
+              />
+              Cái
+            </label>
+          </div>
         </div>
+       <div>
+            <label className="block">Giá (VND)</label>
+            <input
+              type="text"
+              value={priceDisplay}
+              onChange={(e) => {
+                const rawValue = e.target.value.replace(/\D/g, ''); // chỉ giữ số
+                const formatted = Number(rawValue).toLocaleString('vi-VN'); // format VND
+                setPriceDisplay(formatted);
+              }}
+              onBlur={() => {
+                // khi mất focus, set giá trị thực tế vào react-hook-form
+                const raw = priceDisplay.replace(/\D/g, '');
+                setValue('price', raw); // set giá trị thô
+              }}
+              className="w-full border p-2 rounded"
+              placeholder="Ví dụ: 100.000"
+            />
+            <input type="hidden" {...register('price', { required: true })} />
+       </div>
 
         <div>
           <label className="block">Giảm giá (%)</label>

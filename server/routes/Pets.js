@@ -41,12 +41,13 @@ const upload = multer({ storage });
 
 router.post("/", upload.single('image'), async (req, res) => {
   try {
-    const { name, price, discount, rating, stock, isTop, isNew, isOutOfStock } = req.body;
+    const { name,sex, price, discount, rating, stock, isTop, isNew, isOutOfStock } = req.body;
 
     const imagePath = req.file ? `/uploads/${req.file.filename}` : null;
 
     const pet = await Pet.create({
       name,
+      sex,
       price,
       discount,
       rating,
@@ -56,7 +57,6 @@ router.post("/", upload.single('image'), async (req, res) => {
       isNew: isNew === 'true',
       isOutOfStock: isOutOfStock === 'true',
     });
-
     res.status(201).json(pet);
   } catch (error) {
     console.error(error);
@@ -77,5 +77,4 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Xóa thú cưng thất bại' });
   }
 });
-
 module.exports = router;

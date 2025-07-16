@@ -35,6 +35,7 @@ const BestSellerTabs = () => {
             key={data.id}
             image={`http://localhost:3000${data.image}`}
             name={data.name}
+            sex = {data.sex}
             price={data.price}
             discount={data.discount}
             isNew={data.isNew}

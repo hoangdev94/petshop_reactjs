@@ -10,7 +10,7 @@ const ProductTabs = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3000/pets/newpets') // Lấy danh sách thú cưng mới
+      .get('http://localhost:3000/pets/newpets')
       .then((response) => {
         setPetProducts(response.data);
       })
@@ -35,6 +35,7 @@ const ProductTabs = () => {
             key={data.id}
             image={`http://localhost:3000${data.image}`}
             name={data.name}
+            sex ={data.sex}
             price={data.price}
             discount={data.discount == 0 ? null : data.discount}
             isNew={data.isNew }

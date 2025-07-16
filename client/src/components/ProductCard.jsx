@@ -3,6 +3,7 @@ import React from "react";
 const ProductCard = ({
   image,
   name,
+  sex,
   price,
   discount,
   isTop,
@@ -68,14 +69,17 @@ const ProductCard = ({
             <span className="text-gray-800 font-bold">{price.toLocaleString()}₫</span>
           )}
         </div>
-
-        <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+        <div className="flex items-center justify-between text-xs text-gray-500">
           <span>{'★'.repeat(Math.floor(rating)) + '☆'.repeat(5 - Math.floor(rating))}</span>
           {stock !== null && (
             <span>{stock > 0 ? `${stock} sản phẩm còn lại` : 'Hết hàng'}</span>
           )}
         </div>
-
+         <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+          {sex !== null && (
+            <span>{sex != null ? `Giới tính: ${sex}`: ''}</span>
+          )}
+        </div>
         <button
           onClick={onAddToCart}
           disabled={isOutOfStock || stock === 0}

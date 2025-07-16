@@ -61,6 +61,7 @@ function PetManager() {
             <tr className="bg-gray-100 items-center text-center">
               <th className="py-2 px-4 border-b">#</th>
               <th className="py-2 px-4 border-b">Tên</th>
+              <th className="py-2 px-4 border-b">Giới tính</th>
               <th className="py-2 px-4 border-b">Giá</th>
               <th className="py-2 px-4 border-b">Ảnh</th>
               <th className="py-2 px-4 border-b">Tồn kho</th>
@@ -72,9 +73,16 @@ function PetManager() {
               <tr key={pet.id} className="hover:bg-gray-50">
                 <td className="py-2 px-4 border-b">{indexOfFirstPet + index + 1}</td>
                 <td className="py-2 px-4 border-b">{pet.name}</td>
+                 <td className="py-2 px-4 border-b">{pet.sex}</td>
                 <td className="py-2 px-4 border-b">{pet.price.toLocaleString()} đ</td>
                 <td className="py-2 px-4 border-b">
-                  <img src={`http://localhost:3000${pet.image}`} alt={pet.name} className="w-16 h-16 object-cover rounded" />
+                  <div className="flex justify-center items-center">
+                    <img
+                      src={`http://localhost:3000${pet.image}`}
+                      alt={pet.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  </div>
                 </td>
                 <td className="py-2 px-4 border-b">{pet.stock}</td>
                 <td className="py-2 px-4 border-b space-x-2">

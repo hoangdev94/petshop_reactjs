@@ -55,6 +55,20 @@ router.post("/", upload.single('image'), async (req, res) => {
     console.error(error);
     res.status(500).json({ error: 'Thêm sản phẩm thất bại' });
   }
+  
 });
-
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findByPk(id);
+    if (!product) {
+      return res.status(404).json({ error: 'Sản phẩm không tồn tại' });
+    }
+    await product.destroy();
+    res.json({ message: 'Xóa thú sản phẩm thành công' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Xóa sản phẩm thất bại' });
+  }
+});
 module.exports = router;
