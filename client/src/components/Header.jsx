@@ -80,9 +80,13 @@ const Header = () => {
       {/* Main Header */}
         <div className="bg-darkblue text-white">
           <div className="container mx-auto flex justify-between items-center py-4 px-4">
-            <a href="#" className="flex items-center">
-          <img src="src\assets\img\logoshop.png"  alt="BesoPetShop" className="w-24 h-20 md:w-30 md:h-20" />
-            </a>
+           <Link to="/" className="flex items-center">
+              <img
+                src="src/assets/img/logoshop.png"
+                alt="BesoPetShop"
+                className="w-28 h-28 md:w-30 md:h-24"
+              />
+            </Link>
            <ul className="flex gap-6 font-medium uppercase text-l">
               <li>
                 <NavLink 

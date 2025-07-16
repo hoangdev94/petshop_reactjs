@@ -48,11 +48,21 @@ function ProductManager() {
         </button>
       </div>
       {showForm && (
-        <div className="mb-6">
-          <AddProduct onSuccess={fetchProducts} />
-        </div>
-      )}
-
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl relative">
+              <button
+                onClick={() => setShowForm(false)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl font-bold"
+              >
+                ×
+              </button>
+              <AddProduct onSuccess={() => {
+                fetchProducts();
+                setShowForm(false);
+              }} />
+            </div>
+          </div>
+        )}
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white shadow-md rounded text-center items-center">
           <thead>

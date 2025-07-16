@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-
-const AddProduct = () => {
-  const { register, handleSubmit, reset } = useForm();
-
+const AddProduct = ({ onSuccess }) => {
+  const { register, handleSubmit,reset,setValue } = useForm();
+  const [priceDisplay, setPriceDisplay] = useState('');
  const onSubmit = async (data) => {
   const formData = new FormData();
   formData.append('image', data.image[0]);
@@ -26,12 +25,12 @@ const AddProduct = () => {
       }
     });
     console.log('Product added successfully:', response.data);
+    if (onSuccess) onSuccess();
+    reset();
   } catch (error) {
     console.error('Failed to add Product:', error);
   }
 };
-
-
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">Thêm sản phẩm mới</h2>
@@ -42,9 +41,25 @@ const AddProduct = () => {
         </div>
 
         <div>
-          <label className="block">Giá</label>
-          <input type="number" {...register('price')} required className="w-full border p-2 rounded" />
-        </div>
+            <label className="block">Giá (VND)</label>
+            <input
+              type="text"
+              value={priceDisplay}
+              onChange={(e) => {
+                const rawValue = e.target.value.replace(/\D/g, ''); // chỉ giữ số
+                const formatted = Number(rawValue).toLocaleString('vi-VN'); // format VND
+                setPriceDisplay(formatted);
+              }}
+              onBlur={() => {
+                // khi mất focus, set giá trị thực tế vào react-hook-form
+                const raw = priceDisplay.replace(/\D/g, '');
+                setValue('price', raw); // set giá trị thô
+              }}
+              className="w-full border p-2 rounded"
+              placeholder="Ví dụ: 100.000"
+            />
+            <input type="hidden" {...register('price', { required: true })} />
+       </div>
 
         <div>
           <label className="block">Giảm giá (%)</label>

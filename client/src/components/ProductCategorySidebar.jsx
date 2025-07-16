@@ -26,7 +26,7 @@ const ProductCategorySidebar = ({ onSelectCategory }) => {
 
   return (
     <aside className="bg-white p-5 shadow-md rounded-xl border border-gray-200 sticky">
-      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">📦 Danh mục sản phẩm</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4 text-center">Danh mục sản phẩm</h2>
 
       {/* Tìm kiếm */}
       <div className="mb-4">
